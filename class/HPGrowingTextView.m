@@ -85,7 +85,12 @@
     
     internalTextView.text = @"";
     
+    self.placeholderColor = [UIColor lightGrayColor];
+    self.placeholder = @"...";
+    
     [self setMaxNumberOfLines:3];
+    
+    self.text = @"";
 }
 
 -(CGSize)sizeThatFits:(CGSize)size
@@ -324,6 +329,18 @@
 {
     internalTextView.text = newText;
     
+    if ( (!newText || newText.length == 0) && ![internalTextView isFirstResponder] )
+    {
+        internalTextView.text = self.placeholder;
+        internalTextView.textColor = self.placeholderColor;
+        isShowingPlaceholder = YES;
+    }
+    else if ( isShowingPlaceholder )
+    {
+        internalTextView.textColor = textColor;
+        isShowingPlaceholder = NO;
+    }
+    
     // include this line to analyze the height of the textview.
     // fix from Ankit Thakur
     [self performSelector:@selector(textViewDidChange:) withObject:internalTextView];
@@ -353,11 +370,12 @@
 
 -(void)setTextColor:(UIColor *)color
 {
+    textColor = color;
 	internalTextView.textColor = color;
 }
 
 -(UIColor*)textColor{
-	return internalTextView.textColor;
+	return textColor;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -464,6 +482,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    
 	if ([delegate respondsToSelector:@selector(growingTextViewShouldBeginEditing:)]) {
 		return [delegate growingTextViewShouldBeginEditing:self];
 		
@@ -486,6 +505,11 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ( isShowingPlaceholder )
+    {
+        self.text = @"";
+    }
+    
 	if ([delegate respondsToSelector:@selector(growingTextViewDidBeginEditing:)]) {
 		[delegate growingTextViewDidBeginEditing:self];
 	}
@@ -497,6 +521,11 @@
 	if ([delegate respondsToSelector:@selector(growingTextViewDidEndEditing:)]) {
 		[delegate growingTextViewDidEndEditing:self];
 	}
+    
+    if ( textView.text == nil || textView.text.length == 0 )
+    {
+        self.text = @"";
+    }
 }
 
 

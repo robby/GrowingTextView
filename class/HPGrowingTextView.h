@@ -70,6 +70,9 @@
 	UIReturnKeyType returnKeyType;
     
     UIEdgeInsets contentInset;
+    
+    BOOL isShowingPlaceholder;
+    UIColor *textColor;
 }
 
 //real class properties
@@ -80,6 +83,9 @@
 
 
 //uitextview properties
+@property (nonatomic,strong) NSString *placeholder;
+@property (nonatomic,strong) UIColor *placeholderColor;
+
 @property(unsafe_unretained) NSObject<HPGrowingTextViewDelegate> *delegate;
 @property(nonatomic,strong) NSString *text;
 @property(nonatomic,strong) UIFont *font;
