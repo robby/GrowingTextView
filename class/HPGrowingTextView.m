@@ -86,11 +86,17 @@
     internalTextView.text = @"";
     
     self.placeholderColor = [UIColor lightGrayColor];
-    self.placeholder = @"...";
     
     [self setMaxNumberOfLines:3];
     
     self.text = @"";
+}
+
+- (void)setPlaceholder:(NSString *)placeholder {
+    _placeholder = placeholder;
+    if ( self.text == nil || self.text.length == 0 || isShowingPlaceholder ) {
+        self.text = @"";
+    }
 }
 
 -(CGSize)sizeThatFits:(CGSize)size

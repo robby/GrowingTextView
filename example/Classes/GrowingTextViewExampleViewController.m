@@ -110,6 +110,8 @@
     [doneBtn setBackgroundImage:selectedSendBtnBackground forState:UIControlStateSelected];
 	[containerView addSubview:doneBtn];
     containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    
+    textView.placeholder = @"...";
 }
 
 -(void)resignTextView
