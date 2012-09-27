@@ -354,6 +354,8 @@
 
 -(NSString*) text
 {
+    if ( isShowingPlaceholder )
+        return @"";
     return internalTextView.text;
 }
 
