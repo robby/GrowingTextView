@@ -62,7 +62,7 @@
 	BOOL animateHeightChange;
 	
 	//uitextview properties
-	NSObject <HPGrowingTextViewDelegate> *__unsafe_unretained delegate;
+	NSObject <HPGrowingTextViewDelegate> *__weak delegate;
 	UITextAlignment textAlignment; 
 	NSRange selectedRange;
 	BOOL editable;
@@ -86,7 +86,7 @@
 @property (nonatomic,strong) NSString *placeholder;
 @property (nonatomic,strong) UIColor *placeholderColor;
 
-@property(unsafe_unretained) NSObject<HPGrowingTextViewDelegate> *delegate;
+@property(weak) NSObject<HPGrowingTextViewDelegate> *delegate;
 @property(nonatomic,strong) NSString *text;
 @property(nonatomic,strong) UIFont *font;
 @property(nonatomic,strong) UIColor *textColor;
