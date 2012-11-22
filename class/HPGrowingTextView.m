@@ -69,7 +69,7 @@
     CGRect r = self.frame;
     r.origin.y = 0;
     r.origin.x = 0;
-    internalTextView = [[HPTextViewInternal alloc] initWithFrame:r];
+    internalTextView = [[UITextView alloc] initWithFrame:r];
     internalTextView.delegate = self;
     internalTextView.scrollEnabled = NO;
     internalTextView.font = [UIFont fontWithName:@"Helvetica" size:13]; 
@@ -111,24 +111,14 @@
 {
     [super layoutSubviews];
     
-	CGRect r = self.bounds;
-	r.origin.y = 0;
-	r.origin.x = contentInset.left;
-    r.size.width -= contentInset.left + contentInset.right;
-    
-    internalTextView.frame = r;
+    internalTextView.frame = UIEdgeInsetsInsetRect(self.bounds, contentInset);
 }
 
 -(void)setContentInset:(UIEdgeInsets)inset
 {
     contentInset = inset;
     
-    CGRect r = self.frame;
-    r.origin.y = inset.top - inset.bottom;
-    r.origin.x = inset.left;
-    r.size.width -= inset.left + inset.right;
-    
-    internalTextView.frame = r;
+    internalTextView.frame = UIEdgeInsetsInsetRect(self.bounds, contentInset);
     
     [self setMaxNumberOfLines:maxNumberOfLines];
     [self setMinNumberOfLines:minNumberOfLines];
@@ -284,15 +274,11 @@
         [delegate growingTextView:self willChangeHeight:newSizeH];
     }
     
-    CGRect internalTextViewFrame = self.frame;
-    internalTextViewFrame.size.height = newSizeH; // + padding
-    self.frame = internalTextViewFrame;
+    CGRect newFrame = self.frame;
+    newFrame.size.height = newSizeH; // + padding
+    self.frame = newFrame;
     
-    internalTextViewFrame.origin.y = contentInset.top - contentInset.bottom;
-    internalTextViewFrame.origin.x = contentInset.left;
-    internalTextViewFrame.size.width = internalTextView.contentSize.width;
-    
-    internalTextView.frame = internalTextViewFrame;
+    internalTextView.frame = UIEdgeInsetsInsetRect(self.bounds, contentInset);
 }
 
 -(void)growDidStop
