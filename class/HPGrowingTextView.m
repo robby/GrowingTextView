@@ -26,7 +26,6 @@
 //	THE SOFTWARE.
 
 #import "HPGrowingTextView.h"
-#import "HPTextViewInternal.h"
 
 @interface HPGrowingTextView(private)
 -(void)commonInitialiser;

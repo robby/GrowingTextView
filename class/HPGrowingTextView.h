@@ -28,7 +28,6 @@
 #import <UIKit/UIKit.h>
 
 @class HPGrowingTextView;
-@class HPTextViewInternal;
 
 @protocol HPGrowingTextViewDelegate
 
